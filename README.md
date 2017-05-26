@@ -8,12 +8,12 @@ Init Settings
 2. ./.eslintrc 
   - change code to <br>
 { <br>
-  "parser": "babel-eslint",<br>
-  "env": {<br>
-    "browser": true,<br>
-    "node": true<br>
-  },<br>
-  "extends": "airbnb"<br>
+    "parser": "babel-eslint",<br>
+    "env": {<br>
+      "browser": true,<br>
+      "node": true<br>
+    },<br>
+    "extends": "airbnb"<br>
 }<br>
 
 3. Directory(folder) name always in lower-case letter.

@@ -6,7 +6,7 @@ Init Settings
   - slash 'react/prefer-stateless-function': ['error', { ignorePureComponents: true }]
 
 2. ./.eslintrc 
-  - change code to 
+  - change code to <br>
 { <br>
   "parser": "babel-eslint",<br>
   "env": {<br>

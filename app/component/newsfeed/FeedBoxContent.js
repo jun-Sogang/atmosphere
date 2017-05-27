@@ -45,20 +45,22 @@ export default class FeedBoxContent extends Component {
     };
   }
 
-  componentDidMount() {
-    const testUserRef = getDatabase().ref('posts').child('-KjJlGKAD_7Jefm4cqwL');
-    const contentRef = testUserRef.child('content');
-    contentRef.once('value', (snap) => {
-      const content = snap.val();
+  componentWillMount() {
+    const content = this.props.content;
+    console.log('contentData : ', content)
+    let contentFrontState = '';
+    let contentBackState = '';
+    if (!content.includes(' ')) {
+      contentFrontState = content;
+    } else {
       const contentArray = content.split(' ');
-      const contentFrontState = ` ${contentArray.slice(0, 2).join(' ')}`;
-      const contentBackState = ` ${contentArray.slice(2).join(' ')} `;
-      this.setState({
-        contentFront: contentFrontState,
-        contentBack: contentBackState,
-      });
+      contentFrontState = ` ${contentArray.slice(0, 2).join(' ')}`;
+      contentBackState = ` ${contentArray.slice(2).join(' ')} `;
+    }
+    this.setState({
+      contentFront: contentFrontState,
+      contentBack: contentBackState,
     });
-    // console.log('did mounted');
   }
   render() {
     return (
@@ -75,5 +77,3 @@ export default class FeedBoxContent extends Component {
     );
   }
 }
-
-

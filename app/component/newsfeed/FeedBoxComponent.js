@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   View,
-  ScrollView,
 } from 'react-native';
 
 import FeedBoxHeader from './FeedBoxHeader';
@@ -25,7 +24,7 @@ export default class FeedBox extends Component {
       <View style={styles.FeedBox}>
         <FeedBoxHeader userName={this.props.data.authorName} />
         <FeedBoxContent content={this.props.data.content} />
-        <FeedBoxFunctionBar likes={this.props.data.likes} />
+        <FeedBoxFunctionBar likes={this.props.data.likes} shares={this.props.data.shares}/>
         <FeedBoxComment />
       </View>
     );

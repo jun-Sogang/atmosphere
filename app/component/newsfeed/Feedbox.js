@@ -16,7 +16,7 @@ export default class FeedBox extends Component {
       feedBox: [],
     };
   }
-  componentDidMount() {
+  componentWillMount() {
     const feedBoxArray = [];
     getDatabase().ref('posts').on('value', (snap) => {
       console.log('before snap');
@@ -33,6 +33,11 @@ export default class FeedBox extends Component {
           dataObject.likes = Object.keys(content.likes).length;
         } else {
           dataObject.likes = 0;
+        }
+        if (content.remembers !== undefined) {
+          dataObject.shares = Object.keys(content.remembers).length;
+        } else {
+          dataObject.shares = 0;
         }
         console.log(dataObject);
         feedBoxArray.push(dataObject);

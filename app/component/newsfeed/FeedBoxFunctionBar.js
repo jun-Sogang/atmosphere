@@ -4,6 +4,7 @@ import {
     Text,
     View,
     Image,
+    TouchableOpacity,
 } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -51,9 +52,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const iconHeader = require('./../../img/icon/icon-heart.png');
-const iconMusic = require('./../../img/icon/icon-music.png');
-const iconDisk = require('./../../img/icon/icon-disk.png');
+const heartImage = require('./../../img/icon/icon-heart.png');
+const musicImage = require('./../../img/icon/icon-music.png');
+const diskImage = require('./../../img/icon/icon-disk.png');
+
 
 export default class FeedBoxFunctionBar extends Component {
   render() {
@@ -62,15 +64,17 @@ export default class FeedBoxFunctionBar extends Component {
         <View style={styles.bar_icon}>
           <View style={styles.container_left}>
             <View style={styles.btn_container}>
-              <Image source={iconHeader} style={styles.btn} />
+              <Image source={heartImage} style={styles.btn} />
             </View>
-            <View style={styles.btn_container}>
-              <Image source={iconMusic} style={styles.btn} />
-            </View>
+            <TouchableOpacity onPress={this.props.musicIconSelect}>
+              <View style={styles.btn_container}  >
+                <Image source={musicImage} style={styles.btn} />
+              </View>
+            </TouchableOpacity>
           </View>
           <View style={styles.container_right}>
             <View style={styles.btn_container}>
-              <Image source={iconDisk} style={styles.btn} />
+              <Image source={diskImage} style={styles.btn} />
             </View>
           </View>
         </View>

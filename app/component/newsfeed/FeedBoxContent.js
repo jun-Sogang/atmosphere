@@ -4,7 +4,6 @@ import {
     Text,
     View,
 } from 'react-native';
-import { getDatabase } from '../database/database';
 
 const styles = StyleSheet.create({
   container: {

@@ -19,12 +19,13 @@ const styles = StyleSheet.create({
 export default class FeedBox extends Component {
   render() {
     console.log('content in FeedBoxComponent')
-    console.log(this.props.data.content)
+    console.log('content: ' + this.props.data.content);
+    console.log('authorName: ' + this.props.data.authorName);
     return (
       <View style={styles.FeedBox}>
-        <FeedBoxHeader />
+        <FeedBoxHeader userName={this.props.data.authorName} />
         <FeedBoxContent content={this.props.data.content} />
-        <FeedBoxFunctionBar />
+        <FeedBoxFunctionBar likes={this.props.data.likes} />
         <FeedBoxComment />
       </View>
     );

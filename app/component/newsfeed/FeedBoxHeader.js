@@ -6,6 +6,9 @@ import {
     Image,
 } from 'react-native';
 
+import { getDatabase } from '../database/database';
+
+
 const styles = StyleSheet.create({
   Header: {
     height: 56,
@@ -53,18 +56,26 @@ const styles = StyleSheet.create({
 const profileImage = require('./../../img/profile.jpg');
 
 export default class FeedBoxHeader extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userName: this.props.userName,
+      image: '',
+    };
+  }
+
   render() {
+
     return (
       <View style={styles.Header}>
         <View style={styles.image_container}>
           <Image source={profileImage} style={styles.image} />
         </View>
         <View style={styles.profile_container}>
-          <Text style={styles.name}>User Name</Text>
+          <Text style={styles.name}>{this.state.userName}</Text>
           <Text style={styles.time}>posted time</Text>
         </View>
       </View>
     );
   }
 }
-

@@ -75,11 +75,10 @@ export default class FeedBoxFunctionBar extends Component {
           </View>
         </View>
         <View style={styles.bar_text}>
-          <Text style={styles.likes}> 3 likes</Text>
+          <Text style={styles.likes}> {this.props.likes} likes</Text>
           <Text style={styles.shared}> 5 shared</Text>
         </View>
       </View>
     );
   }
 }
-

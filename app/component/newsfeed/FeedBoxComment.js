@@ -27,18 +27,18 @@ const styles = StyleSheet.create({
 
 export default class FeedBoxComment extends Component {
   render() {
+    console.log('beforeComment')
+    console.log(this.props.comments)
+    const commentData = this.props.comments.map(data =>
+      <Text style={styles.container}>
+        <Text style={styles.artist}> {data.artist} </Text>
+        <Text style={styles.title}> {data.title} </Text>
+      </Text>
+    );
     return (
       <View style={styles.Comment}>
-        <Text style={styles.container}>
-          <Text style={styles.artist}> Adele </Text>
-          <Text style={styles.title}> Hello </Text>
-        </Text>
-        <Text style={styles.container}>
-          <Text style={styles.artist}> Kanye West </Text>
-          <Text style={styles.title}> Gold Digger </Text>
-        </Text>
+        {commentData}
       </View>
     );
   }
 }
-

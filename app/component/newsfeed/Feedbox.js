@@ -39,6 +39,17 @@ export default class FeedBox extends Component {
         } else {
           dataObject.shares = 0;
         }
+        const comments = [];
+        if (content.comments !== undefined) {
+          for (let key in content.comments) {
+            const commentData = {
+              artist: content.comments[key].artist.name,
+              title: content.comments[key].title,
+            };
+            comments.push(commentData);
+          }
+        }
+        dataObject.comments = comments;
         console.log(dataObject);
         feedBoxArray.push(dataObject);
       });

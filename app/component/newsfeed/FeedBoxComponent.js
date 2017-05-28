@@ -25,7 +25,7 @@ export default class FeedBox extends Component {
         <FeedBoxHeader userName={this.props.data.authorName} />
         <FeedBoxContent content={this.props.data.content} />
         <FeedBoxFunctionBar likes={this.props.data.likes} shares={this.props.data.shares}/>
-        <FeedBoxComment />
+        <FeedBoxComment comments={this.props.data.comments }/>
       </View>
     );
   }

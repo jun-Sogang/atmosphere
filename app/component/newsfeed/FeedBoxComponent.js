@@ -4,6 +4,7 @@ import {
   View,
 } from 'react-native';
 import { getDatabase } from'../database/database';
+import { userData } from'../userID';
 
 import FeedBoxHeader from './FeedBoxHeader';
 import FeedBoxContent from './FeedBoxContent';
@@ -15,8 +16,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
-
-const userID = 'test User';
 
 export default class FeedBox extends Component {
   constructor(props) {
@@ -45,14 +44,25 @@ export default class FeedBox extends Component {
     .then((status) => {
       const query = {};
       if (status) {
-        query.likes = userID;
-        console.log('add');
+        query[userData.userID] = userData.userID;
       } else {
-        query.likes = null;
+        query[userData.userID] = null;
       }
       return query;
     })
     .then(query => getDatabase().ref('posts').child(this.props.data.postID.V.path.o[1]).child('likes').set(query));
+  }
+  componentDidMount() {
+    getDatabase().ref('posts').child(this.props.data.postID.V.path.o[1]).child('likes')
+    .once('value', (snap) => {
+      snap.forEach((likeData) => {
+        if (likeData.val() === userData.userID) {
+          this.setState({
+            isHeartIconSelected: true,
+          })
+        }
+      })
+    });
   }
   render() {
     return (

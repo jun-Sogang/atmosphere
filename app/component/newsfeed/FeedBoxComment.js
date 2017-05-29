@@ -1,9 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
     StyleSheet,
@@ -27,7 +21,6 @@ const styles = StyleSheet.create({
 
 export default class FeedBoxComment extends Component {
   render() {
-    console.log('beforeComment')
     const commentAllData = this.props.comments.map(data =>
       <Text style={styles.container}>
         <Text style={styles.artist}> {data.artist} </Text>

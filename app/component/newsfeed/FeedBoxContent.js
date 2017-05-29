@@ -3,6 +3,7 @@ import {
     StyleSheet,
     Text,
     View,
+    Image,
 } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -36,41 +37,17 @@ const styles = StyleSheet.create({
 });
 
 export default class FeedBoxContent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      contentFront: 'default contentFront',
-      contentBack: 'default contentBack',
-    };
-  }
-
-  componentWillMount() {
-    const content = this.props.content;
-    console.log('contentData : ', content)
-    let contentFrontState = '';
-    let contentBackState = '';
-    if (!content.includes(' ')) {
-      contentFrontState = content;
-    } else {
-      const contentArray = content.split(' ');
-      contentFrontState = ` ${contentArray.slice(0, 2).join(' ')}`;
-      contentBackState = ` ${contentArray.slice(2).join(' ')} `;
-    }
-    this.setState({
-      contentFront: contentFrontState,
-      contentBack: contentBackState,
-    });
-  }
   render() {
     return (
       <View>
         <View style={styles.container}>
           <Text style={styles.text_container}>
             <Text style={styles.quotation}>{'"'}</Text>
-            <Text style={styles.textFront}>{this.state.contentFront}</Text>
-            <Text style={styles.textBack}>{this.state.contentBack}</Text>
+            <Text style={styles.textFront}>{this.props.contentFront}</Text>
+            <Text style={styles.textBack}>{this.props.contentBack}</Text>
             <Text style={styles.quotation}>{'"'}</Text>
           </Text>
+          <Image source={this.props.image} />
         </View>
       </View>
     );

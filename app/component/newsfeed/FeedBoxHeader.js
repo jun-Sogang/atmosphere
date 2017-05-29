@@ -56,24 +56,43 @@ const styles = StyleSheet.create({
 const profileImage = require('./../../img/profile.jpg');
 
 export default class FeedBoxHeader extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      userName: this.props.userName,
-      image: '',
-    };
-  }
-
   render() {
+    const elapsed = function (tstamp) {
+          var delta_sec = (-tstamp + Date.now()) / 1000;
+          if (delta_sec < 60) {
+            return 'now';
+          } else if (delta_sec < 60 * 60) {
+            var min = Math.floor(delta_sec / 60);
+            return min + ((min > 1) ? " mins" : " min");
+          } else if (delta_sec < 60 * 60 * 24) {
+            var hour = Math.floor(delta_sec / 3600);
+            return hour + ((hour > 1) ? " hours" : " hour");
+          } else {
+            if (Math.floor(delta_sec / (3600 * 24)) == 1) {
+              return "yesterday";
+            }
 
+           var when = new Date(tstamp);
+            var year = when.getFullYear();
+            var month = when.getMonth() + 1;
+            if (month < 10) {
+              month = "0" + month;
+            }
+            var day = when.getDate();
+            if (day < 10) {
+              day = "0" + day;
+            }
+            return year + "." + month + "." + day;
+          }
+        }
     return (
       <View style={styles.Header}>
         <View style={styles.image_container}>
           <Image source={profileImage} style={styles.image} />
         </View>
         <View style={styles.profile_container}>
-          <Text style={styles.name}>{this.state.userName}</Text>
-          <Text style={styles.time}>posted time</Text>
+          <Text style={styles.name}>{this.props.userName}</Text>
+          <Text style={styles.time}>{elapsed(this.props.timestamp)}</Text>
         </View>
       </View>
     );

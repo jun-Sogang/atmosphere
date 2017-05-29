@@ -23,6 +23,12 @@ export default class FeedBox extends Component {
     this.state = {
       isMusicIconSelected: false,
       isHeartIconSelected: false,
+      data: {
+        author: 'default',
+        contentFront: '',
+        contentBack: ',',
+        comments: [],
+      },
     };
     this.musicIconSelect = this.musicIconSelect.bind(this);
     this.heartIconSelect = this.heartIconSelect.bind(this);
@@ -50,10 +56,46 @@ export default class FeedBox extends Component {
       }
       return query;
     })
-    .then(query => getDatabase().ref('posts').child(this.props.data.postID.V.path.o[1]).child('likes').set(query));
+    .then(query => getDatabase().ref('posts').child(this.props.data.postID).child('likes').set(query));
   }
   componentDidMount() {
-    getDatabase().ref('posts').child(this.props.data.postID.V.path.o[1]).child('likes')
+    getDatabase().ref('posts').child(this.props.data.postID).on('value', snap => {
+      const contents = snap.val();
+      const dataObject = {
+        userName: contents.authorname,
+        timestamp: contents.timestamp,
+        updateDate: contents.updatedat,
+      };
+      dataObject.likes = contents.likes ? Object.keys(contents.likes).length : 0;
+      dataObject.shares = contents.shares ? Object.keys(contents.remembers).length : 0;
+      const comments = [];
+      if (contents.comments !== undefined) {
+        for (let key in contents.comments) {
+          const commentData = {
+            artist: contents.comments[key].artist.name,
+            title: contents.comments[key].title,
+          };
+          comments.push(commentData);
+        }
+      }
+      dataObject.comments = comments;
+
+      if (!contents.content.includes(' ')) {
+        dataObject.contentFront = contents.content;
+        dataObject.contentBack = '';
+      } else {
+        const contentArray = contents.content.split(' ');
+        dataObject.contentFront = ` ${contentArray.slice(0, 2).join(' ')}`;
+        dataObject.contentBack = ` ${contentArray.slice(2).join(' ')} `;
+      }
+
+    //  dataObject.image = contents.image ? `data:image/jpeg;base64, ${contents.image}` : '';
+      console.log(dataObject);
+      this.setState({
+        data: dataObject,
+      })
+    });
+    getDatabase().ref('posts').child(this.props.data.postID).child('likes')
     .once('value', (snap) => {
       snap.forEach((likeData) => {
         if (likeData.val() === userData.userID) {
@@ -67,10 +109,10 @@ export default class FeedBox extends Component {
   render() {
     return (
       <View style={styles.FeedBox}>
-        <FeedBoxHeader userName={this.props.data.authorName} />
-        <FeedBoxContent content={this.props.data.content} />
-        <FeedBoxFunctionBar isHeartIconSelected={this.state.isHeartIconSelected} heartIconSelect = {this.heartIconSelect} musicIconSelect={this.musicIconSelect} isMusicIconSelected={this.state.isMusicIconSelected} likes={this.props.data.likes} shares={this.props.data.shares}/>
-        <FeedBoxComment isMusicIconSelected={this.state.isMusicIconSelected} comments={this.props.data.comments }/>
+        <FeedBoxHeader userName={this.state.data.userName} timestamp = {this.state.data.timestamp}/>
+        <FeedBoxContent image={this.state.image} contentFront={this.state.data.contentFront} contentBack={this.state.data.contentBack} />
+        <FeedBoxFunctionBar postID={this.state.data.postID} isHeartIconSelected={this.state.isHeartIconSelected} heartIconSelect = {this.heartIconSelect} musicIconSelect={this.musicIconSelect} isMusicIconSelected={this.state.isMusicIconSelected} likes={this.state.data.likes} shares={this.state.data.shares}/>
+        <FeedBoxComment isMusicIconSelected={this.state.isMusicIconSelected} comments={this.state.data.comments }/>
       </View>
     );
   }

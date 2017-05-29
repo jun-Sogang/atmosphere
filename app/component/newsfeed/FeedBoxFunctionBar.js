@@ -53,7 +53,9 @@ const styles = StyleSheet.create({
 });
 
 const heartImage = require('./../../img/icon/icon-heart.png');
+const heartImageFill = require('./../../img/icon/icon-heart-fill.png')
 const musicImage = require('./../../img/icon/icon-music.png');
+const musicImageFill = require('./../../img/icon/icon-music-fill.png')
 const diskImage = require('./../../img/icon/icon-disk.png');
 
 
@@ -63,12 +65,14 @@ export default class FeedBoxFunctionBar extends Component {
       <View style={styles.FunctionBar}>
         <View style={styles.bar_icon}>
           <View style={styles.container_left}>
-            <View style={styles.btn_container}>
-              <Image source={heartImage} style={styles.btn} />
-            </View>
+            <TouchableOpacity onPress={this.props.heartIconSelect}>
+              <View style={styles.btn_container}>
+                <Image source={this.props.isHeartIconSelected ? heartImageFill : heartImage} style={styles.btn} />
+              </View>
+            </TouchableOpacity>
             <TouchableOpacity onPress={this.props.musicIconSelect}>
               <View style={styles.btn_container}  >
-                <Image source={musicImage} style={styles.btn} />
+                <Image source={this.props.isMusicIconSelected ? musicImageFill : musicImage} style={styles.btn} />
               </View>
             </TouchableOpacity>
           </View>

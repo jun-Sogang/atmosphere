@@ -28,6 +28,7 @@ export default class FeedBox extends Component {
           content: content.content,
           timestamp: content.timestamp,
           updateDate: content.updatedat,
+          postID: postData,
         };
         if (content.likes !== undefined) {
           dataObject.likes = Object.keys(content.likes).length;

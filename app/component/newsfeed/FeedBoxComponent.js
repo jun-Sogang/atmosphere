@@ -56,7 +56,7 @@ export default class FeedBox extends Component {
       }
       return query;
     })
-    .then(query => getDatabase().ref('posts').child(this.props.data.postID).child('likes').set(query));
+    .then(query => getDatabase().ref('posts').child(this.props.data.postID).child('likes').update(query));
   }
   componentDidMount() {
     getDatabase().ref('posts').child(this.props.data.postID).on('value', snap => {

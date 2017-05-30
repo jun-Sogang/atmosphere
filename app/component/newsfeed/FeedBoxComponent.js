@@ -67,7 +67,7 @@ export default class FeedBox extends Component {
         updateDate: contents.updatedat,
       };
       dataObject.likes = contents.likes ? Object.keys(contents.likes).length : 0;
-      dataObject.shares = contents.shares ? Object.keys(contents.remembers).length : 0;
+      dataObject.shares = contents.remembers ? Object.keys(contents.remembers).length : 0;
       const comments = [];
       if (contents.comments !== undefined) {
         for (let key in contents.comments) {
@@ -90,7 +90,6 @@ export default class FeedBox extends Component {
       }
 
     //  dataObject.image = contents.image ? `data:image/jpeg;base64, ${contents.image}` : '';
-      console.log(dataObject);
       this.setState({
         data: dataObject,
       })
